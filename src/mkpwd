@@ -1,11 +1,26 @@
 #!/usr/bin/perl -w
 use strict;
+use warnings;
+use Getopt::Long qw(GetOptions);
+ 
+my $len;
+my @exclude;
 
-my $len = $ARGV[0];
+GetOptions(
+    'length=s' => \$len,
+    'exclude=s@' => \@exclude,
+) or die "Usage: $0 --l[ength]  --e[xclude] a-z ' ' "\'" '"' 0-9\n";
+ 
+
 my $pwd = "";
+my $c = "";
 
 while ($len > 0) {
-  $pwd .= chr(int(rand(94)) + 32);
+  $c = chr(int(rand(94)) + 32);
+  foreach (@exclude) {
+    next if $c =~ m/$_/;
+  }
+  $pwd .= $c;
   $len--;
 }
 
