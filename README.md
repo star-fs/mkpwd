@@ -1,5 +1,5 @@
 
-quick hack to create passwords with variable lenght and allowed value requirments
+quick hack to create passwords with variable length and allowed value requirments
 
 ```
 ./mkpwd -l 12 -e [a-z] " " 9 '"' "'" '`'
