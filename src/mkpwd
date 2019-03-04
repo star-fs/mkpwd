@@ -8,18 +8,26 @@ my @exclude;
 
 GetOptions(
     'length=s' => \$len,
-    'exclude=s@' => \@exclude,
-) or die "Usage: $0 --l[ength]  --e[xclude] a-z ' ' "\'" '"' 0-9\n";
+    'exclude=s{1,}' => \@exclude,
+) or die "Usage: $0 --l[ength]  --e[xclude] a-z \"'\" '\"' 0-9\n";
  
 
 my $pwd = "";
 my $c = "";
+my $pat = "";
+my $skip= 0;
 
 while ($len > 0) {
   $c = chr(int(rand(94)) + 32);
+  $skip = 0;
+
   foreach (@exclude) {
-    next if $c =~ m/$_/;
+    $pat = $_;
+    if ($c =~ m/$pat/g) {
+      $skip = 1;
+    }
   }
+  next if $skip;
   $pwd .= $c;
   $len--;
 }
