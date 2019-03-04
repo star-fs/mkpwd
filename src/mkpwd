@@ -1,0 +1,12 @@
+#!/usr/bin/perl -w
+use strict;
+
+my $len = $ARGV[0];
+my $pwd = "";
+
+while ($len > 0) {
+  $pwd .= chr(int(rand(94)) + 32);
+  $len--;
+}
+
+printf("pwd: '%s'\n", $pwd);
